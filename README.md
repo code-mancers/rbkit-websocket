@@ -31,8 +31,6 @@ And then execute:
 
 ## Usage
 
-Remove Rack::Lock middleware to make sure requests can run concurrently:
-
 ### With Rails
 
 Add the following to `config/application.rb` or `config/environments/<environment>.rb`
