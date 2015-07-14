@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in rbkit-rack.gemspec
+# Specify your gem's dependencies in rbkit-websocket.gemspec
 gemspec

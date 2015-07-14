@@ -1,10 +1,9 @@
-# Rbkit::Rack
+# Rbkit::Websocket
 
 This extension allows you to connect to Rbkit server using websockets over
 a Rack server. The following servers are supported:
 
-The following web servers are supported. Other servers that implement the
-`rack.hijack` API should also work.
+The following web servers will be supported :
 
 * [Goliath](http://postrank-labs.github.com/goliath/)
 * [Phusion Passenger](https://www.phusionpassenger.com/) >= 4.0 with nginx >= 1.4
@@ -12,12 +11,16 @@ The following web servers are supported. Other servers that implement the
 * [Rainbows](http://rainbows.bogomips.org/)
 * [Thin](http://code.macournoyer.com/thin/)
 
+Currently only tested with Thin
+
+All webservers supported by `faye-websocket` should work.
+
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rbkit-rack'
+gem 'rbkit-websocket'
 ```
 
 And then execute:
@@ -26,7 +29,12 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+Remove Rack::Lock middleware to make sure requests can run concurrently:
+
+```ruby
+config.middleware.delete Rack::Lock
+config.middleware.use Rbkit::Websocket
+```
 
 ## Development
 
@@ -36,5 +44,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rbkit-rack.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rbkit-websocket.
 

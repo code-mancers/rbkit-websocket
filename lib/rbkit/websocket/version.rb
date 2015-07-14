@@ -1,5 +1,5 @@
 module Rbkit
-  module Rack
+  class Websocket
     VERSION = "0.1.0"
   end
 end
