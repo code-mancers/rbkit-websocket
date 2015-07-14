@@ -36,7 +36,7 @@ Remove Rack::Lock middleware to make sure requests can run concurrently:
 Add the following to `config/application.rb` or `config/environments/<environment>.rb`
 
 ```ruby
-config.middleware.insert_before ActionDispatch::Static, Rack::Websocket
+config.middleware.insert_before ActionDispatch::Static, Rbkit::Websocket
 ```
 Rbkit::Websocket middleware should come before Rails takes over the request
 to avoid websockets being hijacked by other middlewares(if there are any) and
