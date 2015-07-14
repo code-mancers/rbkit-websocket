@@ -1,4 +1,4 @@
-# Rbkit::Websocket
+# Rbkit::Websocket (Experimental - WIP)
 
 ![image](https://cloud.githubusercontent.com/assets/1707078/8674602/9b08c150-2a5c-11e5-9368-b71e2539a7fa.png)
 
