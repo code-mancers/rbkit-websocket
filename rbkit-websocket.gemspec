@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Emil Soman"]
   spec.email         = ["emil.soman@gmail.com"]
 
-  spec.summary       = %q{Rbkit extension to use websocket over Rack servers}
-  spec.description   = %q{Rbkit extension to use websocket over Rack servers}
+  spec.summary       = %q{Rbkit extension to use websocket on Rack servers}
+  spec.description   = %q{Rbkit extension to use websocket on Rack servers}
   spec.homepage      = nil
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
