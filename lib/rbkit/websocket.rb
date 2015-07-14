@@ -2,10 +2,6 @@ require "rbkit/websocket/version"
 require 'faye/websocket'
 require 'cgi'
 
-if defined? Thin
-  Faye::WebSocket.load_adapter('thin')
-end
-
 module Rbkit
   class Websocket
     KEEPALIVE_TIME = 15 # in seconds
@@ -17,6 +13,9 @@ module Rbkit
 
     def initialize(app)
       @app = app
+      if defined? Thin
+        Faye::WebSocket.load_adapter('thin')
+      end
     end
 
     def call(env)
@@ -35,7 +34,7 @@ module Rbkit
     def rbkit_websocket_init(ws)
       server = Rbkit.server
       if server.nil?
-        ws.close
+        ws.close(nil, 'Closing websocket because Rbkit server is not running')
         return
       end
 
