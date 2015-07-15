@@ -38,6 +38,9 @@ Add the following to `config/application.rb` or `config/environments/<environmen
 ```ruby
 config.middleware.insert_before ActionDispatch::Static, Rbkit::Websocket
 ```
+Replace `ActionDispatch::Static` with whichever middleware comes first in your
+Rack middleware stack. Use `RAILS_ENV=<environment> rake middleware` to list
+out your middleware stack.
 Rbkit::Websocket middleware should come before Rails takes over the request
 to avoid websockets being hijacked by other middlewares(if there are any) and
 also to avoid the mutex lock over the request added by Rack::Lock.
