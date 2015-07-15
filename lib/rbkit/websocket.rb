@@ -47,7 +47,6 @@ module Rbkit
       }
 
       ws.on :message do |event|
-        ws.send "rbkit got :" + event.data
         server.process_incoming_request(event.data)
       end
 
