@@ -16,6 +16,7 @@ module Rbkit
       if defined? Thin
         Faye::WebSocket.load_adapter('thin')
       end
+      @connected_clients = []
     end
 
     def call(env)
@@ -52,10 +53,15 @@ module Rbkit
 
       ws.on :open do |e|
         puts "Rbkit opening connection"
+        @connected_clients.each do |client|
+          client.send("#{CHANNELS[:response]}client_count:#{@connected_clients.size + 1}")
+        end
+        @connected_clients << ws
       end
 
       ws.on :close do |event|
         puts "Rbkit Closing connection"
+        @connected_clients.delete ws
         ws = nil
       end
     end
