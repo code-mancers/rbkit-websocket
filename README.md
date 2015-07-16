@@ -55,8 +55,21 @@ use Rbkit::Websocket
 
 ## Protocol
 
-Rbkit server accepts commands from the client and sends out 2 types of data to
-the client:
+### Rbkit Protocol Extension
+
+Websocket clients need to create websocket requests with a protocol extension
+named "rbkit". For example, in JS:
+
+```javascript
+var ws = new WebSocket('<URL>', ['rbkit']);
+```
+
+This is required because we don't want to hijack websockets created for
+application users which needs to be passed on to the application.
+
+### Parsing response data
+
+Rbkit server accepts commands from the client and sends out 2 types of data back :
 
 1. Responses to the commands received (synchronous).
 2. Profiling data as and when they are ready to be sent.
