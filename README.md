@@ -1,4 +1,4 @@
-# Rbkit::Websocket (Experimental - WIP)
+# Rbkit::Websocket
 
 ![image](https://cloud.githubusercontent.com/assets/1707078/8674602/9b08c150-2a5c-11e5-9368-b71e2539a7fa.png)
 
@@ -13,7 +13,7 @@ The following web servers will be supported :
 * [Rainbows](http://rainbows.bogomips.org/)
 * [Thin](http://code.macournoyer.com/thin/)
 
-Currently only tested with Thin
+Currently only tested with Thin and Puma.
 
 All webservers supported by `faye-websocket` should work.
 
