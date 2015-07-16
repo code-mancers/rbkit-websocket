@@ -53,6 +53,41 @@ Add Rbkit::Websocket to your middleware stack:
 use Rbkit::Websocket
 ```
 
+## Protocol
+
+Rbkit server accepts commands from the client and sends out 2 types of data to
+the client:
+
+1. Responses to the commands received (synchronous).
+2. Profiling data as and when they are ready to be sent.
+
+For this, Rbkit works with 2 ZMQ sockets :
+
+1. RES socket which can accept commands and give synchronous responses.
+2. PUB socket which sends out profiling data.
+
+Since websockets make bidirectional communication possible, we can combine both
+the request-response as well as the pub-sub channels into a single websocket.
+But when we combine these two, the client will no longer be able to differentiate
+between responses and profiling data.
+
+For this, rbkit-websocket prepends a 0 in response messages and 1 in messages
+with profiling data. For example:
+
+`<MessagePack packed response from rbkit>` becomes
+`0<MessagePack packed response from rbkit>`
+
+and
+
+`<MessagePack packed profiling data from rbkit>` becomes
+`1<MessagePack packed profiling data from rbkit>`
+
+So what this means is:
+
+1. Clients can send commands to rbkit server over websockets.
+2. Clients need to parse data received on websockets and deal with them based
+   on whether the first character is 0 or 1.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
