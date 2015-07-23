@@ -11,8 +11,17 @@ module Rbkit
       publish: '1'
     }
 
-    def initialize(app)
-      @app = app
+    def initialize(app, options={})
+      @password = options[:password]
+      assets_dir = File.join File.dirname(__FILE__), 'assets'
+      # Serve index page at /rbkit
+      app = Rack::Static.new(app, {urls: {'/rbkit' => 'index.html'}, root: assets_dir})
+      # Serve assets at /rbkit/assets
+      @app = Rack::Static.new(app, {urls: ["/rbkit/assets"], root: File.join(assets_dir, '..', '..')})
+      # Add a basic auth
+      @auth = Rack::Auth::Basic.new(@app) do |username, password|
+        password == @password
+      end
       if defined? Thin
         Faye::WebSocket.load_adapter('thin')
       end
@@ -20,6 +29,7 @@ module Rbkit
     end
 
     def call(env)
+      puts env['PATH_INFO'].inspect
       if Faye::WebSocket.websocket?(env) && env['HTTP_SEC_WEBSOCKET_PROTOCOL'] == 'rbkit'
         ws = Faye::WebSocket.new(env, ['rbkit'], {ping: KEEPALIVE_TIME })
 
@@ -28,7 +38,11 @@ module Rbkit
         # Return async Rack response
         ws.rack_response
       else
-        @app.call(env)
+        if (!@password.nil? && env['PATH_INFO'].index('/rbkit') == 0)
+          @auth.call(env)
+        else
+          @app.call(env)
+        end
       end
     end
 

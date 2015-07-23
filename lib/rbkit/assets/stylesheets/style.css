@@ -1,0 +1,36 @@
+div.header {
+  padding: 10px 30px 25px;
+  background-color: rgb(247, 247, 247);
+}
+span.rbkit-logo-text {
+  font-size: 35px;
+}
+img.rbkit-logo {
+  position: relative;
+  top: 10px;
+}
+.cpu-profiling-button > button{
+  height: 60px;
+}
+
+.button-running, .button-stopped {
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-running {
+  background: rgb(202, 60, 60);
+}
+.button-stopped {
+  background-color: rgb(28, 184, 65);
+}
+.sample-count {
+  margin: auto;
+  width: 50%;
+  padding: 10%;
+  background-color: rgb(247, 247, 247);
+  margin-top: 10%;
+}
+.frame-table {
+  width:100%;
+}
